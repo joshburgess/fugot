@@ -19,7 +19,26 @@
     "index.js"
   ],
   "keywords": [
-    ""
+    "future",
+    "fluture",
+    "fantasy-land",
+    "functional",
+    "monad",
+    "burrito",
+    "promise",
+    "http",
+    "https",
+    "get",
+    "got",
+    "url",
+    "uri",
+    "request",
+    "util",
+    "utility",
+    "simple",
+    "curl",
+    "wget",
+    "fetch"
   ],
   "dependencies": {
     "create-error-class": "^3.0.2",
