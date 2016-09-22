@@ -1,0 +1,30 @@
+{
+  "name": "fugot",
+  "version": "0.0.0",
+  "description": "Like Got but with futures",
+  "license": "MIT",
+  "repository": "sotojuan/fugot",
+  "author": {
+    "name": "Juan Soto",
+    "email": "juan@juansoto.me",
+    "url": "juansoto.me"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "test": "standard | snazzy --verbose && ava --verbose"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    ""
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "standard": "^8.0.0",
+    "snazzy": "^5.0.0"
+  }
+}
