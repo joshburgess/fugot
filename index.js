@@ -59,15 +59,15 @@ function requestAsEventEmitter (opts) {
       })
     })
 
-    req.once('error', err => {
-      const backoff = opts.retries(++retryCount, err)
+    req.once('error', error => {
+      const backoff = opts.retries(++retryCount, error)
 
       if (backoff) {
         setTimeout(get, backoff, opts)
         return
       }
 
-      ee.emit('error', new fugot.RequestError(err, opts))
+      ee.emit('error', new fugot.RequestError(error, opts))
     })
 
     if (opts.timeout) {
@@ -99,7 +99,7 @@ function asFuture (opts) {
       const stream = opts.encoding === null ? getStream.buffer(res) : getStream(res, opts)
 
       stream
-        .catch(err => reject(new fugot.ReadError(err, opts)))
+        .catch(error => reject(new fugot.ReadError(error, opts)))
         .then(data => {
           const statusCode = res.statusCode
           const limitStatusCode = opts.followRedirect ? 299 : 399
@@ -121,9 +121,9 @@ function asFuture (opts) {
 
           resolve(res)
         })
-        .catch(err => {
-          Object.defineProperty(err, 'response', {value: res})
-          reject(err)
+        .catch(error => {
+          Object.defineProperty(error, 'response', {value: res})
+          reject(error)
         })
     })
 
@@ -213,8 +213,8 @@ function normalizeArguments (url, opts) {
   if (typeof opts.retries !== 'function') {
     const retries = opts.retries
 
-    opts.retries = function backoff (iter, err) {
-      if (iter > retries || !isRetryAllowed(err)) {
+    opts.retries = function backoff (iter, error) {
+      if (iter > retries || !isRetryAllowed(error)) {
         return 0
       }
 
@@ -234,8 +234,8 @@ function normalizeArguments (url, opts) {
 function fugot (url, opts) {
   try {
     return asFuture(normalizeArguments(url, opts))
-  } catch (err) {
-    return Future.reject(err)
+  } catch (error) {
+    return Future.reject(error)
   }
 }
 
