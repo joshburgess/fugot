@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/sotojuan/fugot.svg?branch=master)](https://travis-ci.org/sotojuan/fugot)
 
-> Like Got but with futures
+> Like [`got`](https://github.com/sindresorhus/got) but with [futures](https://github.com/Avaq/Fluture)
 
 ## Install
 
