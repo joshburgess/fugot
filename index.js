@@ -289,3 +289,4 @@ fugot.MaxRedirectsError = createErrorClass('MaxRedirectsError', function (status
 })
 
 module.exports = fugot
+module.exports.Future = Future
