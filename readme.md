@@ -131,7 +131,7 @@ Defines if redirect responses should be followed automatically.
 
 ## Thanks
 
-* [Sindre Sorhus](github.com/sindresorhus) for `got` and the docs
+* [Sindre Sorhus](https://github.com/sindresorhus) for `got` and the docs
 * [Aldwin Vlasblom](https://github.com/Avaq/Fluture) for `fluture`
 
 ## License
