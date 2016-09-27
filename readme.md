@@ -42,11 +42,10 @@ const firstName = fugot('http://api.randomuser.me', {json: true})
 // Prints a random first name
 firstName.fork(console.error, console.log)
 
-const uppercaseString = Future.of(x => x.toUpperCase())
-
-// Applies `firstName` to `uppercaseString`
-// Prints a random first name in uppercase
-uppercaseString.ap(firstName).fork(console.error, console.log)
+// Call the function returned by `fork` to cancel a request
+const cancel = firstName.fork(console.error, console.log)
+// Nothing should be printed unless you comment the following out
+cancel()
 ```
 
 ### API
