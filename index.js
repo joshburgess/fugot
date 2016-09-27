@@ -59,6 +59,10 @@ function requestAsEventEmitter (opts) {
       })
     })
 
+    ee.on('abort', () => {
+      req.abort()
+    })
+
     req.once('error', error => {
       const backoff = opts.retries(++retryCount, error)
 
@@ -128,6 +132,8 @@ function asFuture (opts) {
     })
 
     ee.on('error', reject)
+
+    return () => ee.emit('abort')
   })
 }
 
