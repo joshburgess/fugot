@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "ava": "^0.16.0",
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.0.0",
     "form-data": "^2.0.0",
     "get-port": "^2.1.0",
     "get-stream": "^2.3.1",
