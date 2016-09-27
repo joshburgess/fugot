@@ -1,7 +1,7 @@
 {
   "name": "fugot",
   "version": "0.2.0",
-  "description": "Like Got but with futures",
+  "description": "Like got but with futures",
   "license": "MIT",
   "repository": "sotojuan/fugot",
   "author": {
