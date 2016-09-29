@@ -56,7 +56,6 @@
   },
   "devDependencies": {
     "ava": "^0.16.0",
-    "babel-eslint": "^7.0.0",
     "form-data": "^2.0.0",
     "get-port": "^2.1.0",
     "get-stream": "^2.3.1",
@@ -64,10 +63,7 @@
     "pem": "^1.8.3",
     "pify": "^2.3.0",
     "snazzy": "^5.0.0",
-    "standard": "^8.0.0",
+    "standard": "^8.3.0",
     "tempfile": "^1.1.1"
-  },
-  "standard": {
-    "parser": "babel-eslint"
   }
 }
