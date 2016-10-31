@@ -31,7 +31,7 @@ For a more in-depth comparison, see [Fluture's wiki](https://github.com/Avaq/Flu
 
 ```js
 const fugot = require('fugot')
-// Because you'll probably be making your own raw Futures, they're exposed by `fugot`
+// Because you'll probably be making your own Futures, they're exposed by `fugot`
 const Future = fugot.Future
 
 // Requests don't run until you call `fork`
