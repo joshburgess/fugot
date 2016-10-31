@@ -52,9 +52,9 @@ cancel()
 
 These docs are copied from `got` with appropiate modifications.
 
-It's a `GET` request by default, but that can be changed in `options`.
-
 #### fugot(url, [options])
+
+A `GET` request by default, but that can be changed in `options`.
 
 Returns a Future for a `response` object with a `body` property, a `url` property with the final URL after redirects, and a `requestUrl` property with the original request URL.
 
