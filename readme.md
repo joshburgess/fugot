@@ -135,4 +135,4 @@ Defines if redirect responses should be followed automatically.
 
 ## License
 
-MIT © [Juan Soto](http://juansoto.me)
+MIT © [Juan Soto](https://juansoto.me)
