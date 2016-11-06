@@ -121,6 +121,13 @@ test('requestUrl response when sending url as param', t => {
     })
 })
 
+test('response contains url', t => {
+  fugot(s.url)
+    .fork(t.falsy, (res) => {
+      t.is(res.url, `{s.url}/`)
+    })
+})
+
 test.after('cleanup', async () => {
   await s.close()
 })
