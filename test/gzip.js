@@ -81,6 +81,14 @@ test('ignore missing data', t => {
     })
 })
 
+test('has url and requestUrl properties', t => {
+  fugot(s.url)
+    .fork(t.falsy, (res) => {
+      t.truthy(res.url)
+      t.truthy(res.requestUrl)
+    })
+})
+
 test.after('cleanup', async () => {
   await s.close()
 })
