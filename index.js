@@ -39,12 +39,6 @@ function requestAsEventEmitter (opts) {
     const req = fn.request(opts, res => {
       const statusCode = res.statusCode
 
-      if (redirectUrl) {
-        res.url = redirectUrl
-      }
-
-      res.requestUrl = requestUrl
-
       if (isRedirect(statusCode) && opts.followRedirect && 'location' in res.headers && (opts.method === 'GET' || opts.method === 'HEAD')) {
         res.resume()
 
@@ -68,7 +62,12 @@ function requestAsEventEmitter (opts) {
       }
 
       setImmediate(() => {
-        ee.emit('response', typeof unzipResponse === 'function' && req.method !== 'HEAD' ? unzipResponse(res) : res)
+        const response = typeof unzipResponse === 'function' && req.method !== 'HEAD' ? unzipResponse(res) : res
+
+        response.url = redirectUrl || requestUrl
+        response.requestUrl = requestUrl
+
+        ee.emit('response', response)
       })
     })
 
