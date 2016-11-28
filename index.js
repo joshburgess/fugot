@@ -1,6 +1,6 @@
 'use strict'
 
-const EventEmitter = require('events').EventEmitter
+const EventEmitter = require('events')
 const Future = require('fluture')
 const http = require('http')
 const https = require('https')
@@ -15,7 +15,7 @@ const querystring = require('querystring')
 const lowercaseKeys = require('lowercase-keys')
 const isRetryAllowed = require('is-retry-allowed')
 const createErrorClass = require('create-error-class')
-const pkg = require('./package.json')
+const pkg = require('./package')
 
 const isModernBuffer = (
   typeof Buffer.alloc === 'function' &&
