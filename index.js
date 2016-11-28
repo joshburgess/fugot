@@ -15,7 +15,6 @@ const querystring = require('querystring')
 const lowercaseKeys = require('lowercase-keys')
 const isRetryAllowed = require('is-retry-allowed')
 const createErrorClass = require('create-error-class')
-const nodeStatusCodes = require('node-status-codes')
 const pkg = require('./package.json')
 
 const isModernBuffer = (
@@ -287,21 +286,21 @@ fugot.ReadError = createErrorClass('ReadError', stdError)
 fugot.ParseError = createErrorClass('ParseError', function (e, statusCode, opts, data) {
   stdError.call(this, e, opts)
   this.statusCode = statusCode
-  this.statusMessage = nodeStatusCodes[this.statusCode]
+  this.statusMessage = http.STATUS_CODES[this.statusCode]
   this.message = `${e.message} in "${urlLib.format(opts)}": \n${data.slice(0, 77)}...`
 })
 
 fugot.HTTPError = createErrorClass('HTTPError', function (statusCode, opts) {
   stdError.call(this, {}, opts)
   this.statusCode = statusCode
-  this.statusMessage = nodeStatusCodes[this.statusCode]
+  this.statusMessage = http.STATUS_CODES[this.statusCode]
   this.message = `Response code ${this.statusCode} (${this.statusMessage})`
 })
 
 fugot.MaxRedirectsError = createErrorClass('MaxRedirectsError', function (statusCode, opts) {
   stdError.call(this, {}, opts)
   this.statusCode = statusCode
-  this.statusMessage = nodeStatusCodes[this.statusCode]
+  this.statusMessage = http.STATUS_CODES[this.statusCode]
   this.message = 'Redirected 10 times. Aborting.'
 })
 
