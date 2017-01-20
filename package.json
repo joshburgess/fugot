@@ -1,6 +1,6 @@
 {
   "name": "fugot",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Like got but with futures",
   "license": "MIT",
   "repository": "sotojuan/fugot",
