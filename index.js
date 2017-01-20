@@ -85,8 +85,8 @@ function requestAsEventEmitter (opts) {
       ee.emit('error', new fugot.RequestError(error, opts))
     })
 
-    if (opts.timeout) {
-      timedOut(req, opts.timeout)
+    if (opts.fugotTimeout) {
+      timedOut(req, opts.fugotTimeout)
     }
 
     setImmediate(() => ee.emit('request', req))
@@ -242,6 +242,11 @@ function normalizeArguments (url, opts) {
 
   if (opts.followRedirect === undefined) {
     opts.followRedirect = true
+  }
+
+  if (opts.timeout) {
+    opts.fugotTimeout = opts.timeout
+    delete opts.timeout
   }
 
   return opts
