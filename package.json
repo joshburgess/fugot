@@ -48,7 +48,6 @@
     "is-retry-allowed": "^1.1.0",
     "is-stream": "^1.1.0",
     "lowercase-keys": "^1.0.0",
-    "querystring": "^0.2.0",
     "timed-out": "^4.0.1",
     "unzip-response": "^2.0.1",
     "url-parse-lax": "^1.0.0"
@@ -57,8 +56,6 @@
     "ava": "^0.17.0",
     "form-data": "^2.0.0",
     "get-port": "^2.1.0",
-    "get-stream": "^2.3.1",
-    "install": "^0.8.2",
     "into-stream": "^3.1.0",
     "pem": "^1.9.4",
     "pify": "^2.3.0",
