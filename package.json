@@ -13,7 +13,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "standard | snazzy --verbose && ava --verbose"
+    "test": "standard | snazzy --verbose && ava --fail-fast --verbose"
   },
   "files": [
     "index.js"
