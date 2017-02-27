@@ -172,7 +172,7 @@ function normalizeArguments (url, opts) {
   )
 
   opts.headers = Object.assign({
-    'user-agent': `${pkg.name}/${pkg.version} (https://github.com/sindresorhus/got)`,
+    'user-agent': `${pkg.name}/${pkg.version} (https://github.com/sotojuan/fugot)`,
     'accept-encoding': 'gzip,deflate'
   }, lowercaseKeys(opts.headers))
 
