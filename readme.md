@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/sotojuan/fugot.svg?branch=master)](https://travis-ci.org/sotojuan/fugot)
 
-> Like [`got`](https://github.com/sindresorhus/got) but with [Futures](https://github.com/Avaq/Fluture)
+> Like [`got`](https://github.com/sindresorhus/got) but with [Futures](https://github.com/fluture-js/Fluture)
 
-This library is a port of the excellent `got` Node HTTP client that returns Futures instead of Promises, provided by the also excellent [Fluture](https://github.com/Avaq/Fluture) library.
+This library is a port of the excellent `got` Node HTTP client that returns Futures instead of Promises, provided by the also excellent [Fluture](https://github.com/fluture-js/Fluture) library.
 
 Please note that unlike `got`, `fugot` **does not support streams** as it's focused on being a Future-returning client for Node.
 
@@ -18,14 +18,14 @@ $ npm install --save fugot
 
 Futures offer an interesting alternative to Promises with the following features:
 
-* [Lazy evaluation](https://github.com/Avaq/Fluture/wiki/Comparison-to-Promises#eagerness-vs-laziness)
+* [Lazy evaluation](https://github.com/fluture-js/Fluture/wiki/Comparison-to-Promises#eagerness-vs-laziness)
 * [Fantasy Land](https://github.com/fantasyland/fantasy-land) spec compliance
-* [Cancellation](https://github.com/Avaq/Fluture#future)
-* [Resource management](https://github.com/Avaq/Fluture#resource-management)
+* [Cancellation](https://github.com/fluture-js/Fluture#future)
+* [Resource management](https://github.com/fluture-js/Fluture#resource-management)
 
-Fluture offers a nice API that provides [transformation](https://github.com/Avaq/Fluture#transforming-futures), [error handling](https://github.com/Avaq/Fluture#error-handling), and [parallelism](https://github.com/Avaq/Fluture#parallelism) methods.
+Fluture offers a nice API that provides [transformation](https://github.com/fluture-js/Fluture#transforming-futures), [error handling](https://github.com/fluture-js/Fluture#error-handling), and [parallelism](https://github.com/fluture-js/Fluture#parallelism) methods.
 
-For a more in-depth comparison, see [Fluture's wiki](https://github.com/Avaq/Fluture/wiki/Comparison-to-Promises).
+For a more in-depth comparison, see [Fluture's wiki](https://github.com/fluture-js/Fluture/wiki/Comparison-to-Promises).
 
 ## Usage
 
@@ -133,7 +133,7 @@ Defines if redirect responses should be followed automatically.
 ## Thanks
 
 * [Sindre Sorhus](https://github.com/sindresorhus) for `got` and the docs
-* [Aldwin Vlasblom](https://github.com/Avaq/Fluture) for `fluture`
+* [Aldwin Vlasblom](https://github.com/fluture-js/Fluture) for `fluture`
 
 ## License
 
