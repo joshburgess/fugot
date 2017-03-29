@@ -1,10 +1,10 @@
 import {format} from 'util'
-import tempfile from 'tempfile'
+import tempy from 'tempy'
 import test from 'ava'
 import fugot from '../'
 import {createServer} from './helpers/server'
 
-const socketPath = tempfile('.socket')
+const socketPath = tempy.file({extension: '.socket'})
 
 let s
 
