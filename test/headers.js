@@ -17,27 +17,30 @@ test.before('setup', async () => {
   await s.listen(s.port)
 })
 
-test('user-agent', t => {
+test.cb('user-agent', t => {
   fugot(s.url, {json: true})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['user-agent'], `${pkg.name}/${pkg.version} (https://github.com/sotojuan/fugot)`)
+      t.end()
     })
 })
 
-test('accept-encoding', t => {
+test.cb('accept-encoding', t => {
   fugot(s.url, {json: true})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['accept-encoding'], 'gzip,deflate')
+      t.end()
     })
 })
 
-test('accept header with json option', t => {
+test.cb('accept header with json option', t => {
   fugot(s.url, {json: true})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body.accept, 'application/json')
+      t.end()
     })
 
   fugot(s.url, {
@@ -49,18 +52,20 @@ test('accept header with json option', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body.accept, '')
+      t.end()
     })
 })
 
-test('host', t => {
+test.cb('host', t => {
   fugot(s.url, {json: true})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body.host, `localhost:${s.port}`)
+      t.end()
     })
 })
 
-test('transform names to lowercase', t => {
+test.cb('transform names to lowercase', t => {
   fugot(s.url, {
     headers: {
       'USER-AGENT': 'test'
@@ -70,10 +75,11 @@ test('transform names to lowercase', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['user-agent'], 'test')
+      t.end()
     })
 })
 
-test('zero content-length', t => {
+test.cb('zero content-length', t => {
   fugot(s.url, {
     headers: {
       'content-length': 0
@@ -84,10 +90,11 @@ test('zero content-length', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['content-length'], '0')
+      t.end()
     })
 })
 
-test('form-data manual content-type', t => {
+test.cb('form-data manual content-type', t => {
   const form = new FormData()
   form.append('a', 'b')
 
@@ -100,11 +107,12 @@ test('form-data manual content-type', t => {
   })
     .map(x => x.body)
     .fork(t.falsy, (body) => {
-      t.is(body['content-length'], 'custom')
+      t.is(body['content-type'], 'custom')
+      t.end()
     })
 })
 
-test('form-data automatic content-type', async t => {
+test.cb('form-data automatic content-type', t => {
   const form = new FormData()
   form.append('a', 'b')
 
@@ -115,6 +123,7 @@ test('form-data automatic content-type', async t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['content-type'], `multipart/form-data; boundary=${form.getBoundary()}`)
+      t.end()
     })
 })
 

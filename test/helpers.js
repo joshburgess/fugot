@@ -19,22 +19,25 @@ test.before('setup', async () => {
   await s.listen(s.port)
 })
 
-test('promise mode', async t => {
+test.cb('helpers', t => {
   fugot(s.url)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'ok')
+      t.end()
     })
 
   fugot(`${s.url}/404`)
     .fork((error) => {
       t.is(error.statusCode, 404)
       t.is(error.response.body, 'not found')
+      t.end()
     }, t.falsy)
 
   fugot('.com', {retries: 0})
     .fork((error) => {
       t.truthy(error)
+      t.end()
     }, t.falsy)
 })
 

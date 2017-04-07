@@ -41,15 +41,16 @@ test.before('setup', async () => {
   await s.listen(s.port)
 })
 
-test('make request to https server without ca', t => {
+test.cb('make request to https server without ca', t => {
   fugot(s.url, {rejectUnauthorized: false})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.truthy(body)
+      t.end()
     })
 })
 
-test('make request to https server with ca', t => {
+test.cb('make request to https server with ca', t => {
   fugot(s.url, {
     strictSSL: true,
     ca: caRootCert,
@@ -58,6 +59,7 @@ test('make request to https server with ca', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.truthy(body)
+      t.end()
     })
 })
 

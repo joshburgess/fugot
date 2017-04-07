@@ -31,44 +31,48 @@ test.before('setup', async () => {
   await s.listen(s.port)
 })
 
-test('works on timeout error', t => {
+test.cb('works on timeout error', t => {
   fugot(`${s.url}/knock-twice`, {timeout: {connect: 100, socket: 100}})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'who\'s there?')
+      t.end()
     })
 })
 
-test('can be disabled with option', t => {
+test.cb('can be disabled with option', t => {
   fugot(`${s.url}/try-me`, {timeout: {connect: 500, socket: 500}, retries: 0})
     .map(x => x.body)
     .fork((error) => {
       t.truthy(error)
       t.is(trys, 1)
+      t.end()
     }, t.falsy)
 })
 
-test('function gets iter count', t => {
+test.cb('function gets iter count', t => {
   fugot(`${s.url}/fifth`, {
     timeout: {connect: 500, socket: 500},
     retries: iter => iter < 10
   })
     .fork(t.falsy, () => {
       t.is(fifth, 6)
+      t.end()
     })
 })
 
-test('falsy value prevents retries', t => {
+test.cb('falsy value prevents retries', t => {
   fugot(`${s.url}/long`, {
     timeout: {connect: 100, socket: 100},
     retries: () => 0
   })
     .fork((error) => {
       t.truthy(error)
+      t.end()
     }, t.falsy)
 })
 
-test('falsy value prevents retries #2', t => {
+test.cb('falsy value prevents retries #2', t => {
   fugot(`${s.url}/long`, {
     timeout: {connect: 100, socket: 100},
     retries: (iter, err) => {
@@ -78,6 +82,7 @@ test('falsy value prevents retries #2', t => {
   })
     .fork((error) => {
       t.truthy(error)
+      t.end()
     }, t.falsy)
 })
 

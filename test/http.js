@@ -29,102 +29,115 @@ test.before('setup', async () => {
   await s.listen(s.port)
 })
 
-test('simple request', t => {
+test.cb('simple request', t => {
   fugot(s.url)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'ok')
+      t.end()
     })
 })
 
-test('protocol-less URLs', t => {
+test.cb('protocol-less URLs', t => {
   fugot(s.url.replace(/^http:\/\//, ''))
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'ok')
+      t.end()
     })
 })
 
-test('empty response', t => {
+test.cb('empty response', t => {
   fugot(`${s.url}/empty`)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '')
+      t.end()
     })
 })
 
-test('requestUrl response', t => {
+test.cb('requestUrl response', t => {
   fugot(s.url)
     .map(x => x.requestUrl)
     .fork(t.falsy, (url) => {
       t.is(url, `${s.url}/`)
+      t.end()
     })
 
   fugot(`${s.url}/empty`)
     .map(x => x.requestUrl)
     .fork(t.falsy, (url) => {
       t.is(url, `${s.url}/empty`)
+      t.end()
     })
 })
 
-test('error with code', t => {
+test.cb('error with code', t => {
   fugot(`${s.url}/404`)
     .fork((error) => {
       t.is(error.statusCode, 404)
       t.is(error.response.body, 'not')
+      t.end()
     }, t.falsy)
 })
 
-test('buffer on encoding === null', t => {
+test.cb('buffer on encoding === null', t => {
   fugot(s.url, {encoding: null})
     .map(x => x.body)
     .fork(t.falsy, (data) => {
       t.truthy(Buffer.isBuffer(data))
+      t.end()
     })
 })
 
-test('timeout option', t => {
+test.cb('timeout option', t => {
   fugot(`${s.url}/404`, {
     timeout: 1,
     retries: 0
   })
   .fork((error) => {
     t.is(error.code, 'ETIMEDOUT')
+    t.end()
   }, t.falsy)
 })
 
-test('query option', t => {
+test.cb('query option', t => {
   fugot(s.url, {query: {recent: true}})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'recent')
+      t.end()
     })
 
   fugot(s.url, {query: 'recent=true'})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'recent')
+      t.end()
     })
 })
 
-test('requestUrl response when sending url as param', t => {
+test.cb('requestUrl response when sending url as param', t => {
   fugot(s.url, {hostname: s.host, port: s.port})
     .map(x => x.requestUrl)
     .fork(t.falsy, (url) => {
       t.is(url, `${s.url}/`)
+      t.end()
     })
 
   fugot({hostname: s.host, port: s.port})
     .map(x => x.requestUrl)
     .fork(t.falsy, (url) => {
       t.is(url, `${s.url}/`)
+      t.end()
     })
 })
 
-test('response contains url', t => {
+test.cb('response contains url', t => {
   fugot(s.url)
     .fork(t.falsy, (res) => {
-      t.is(res.url, `{s.url}/`)
+      t.is(res.url, `${s.url}/`)
+      t.end()
     })
 })
 

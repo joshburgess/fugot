@@ -18,23 +18,25 @@ test.before('setup', async () => {
   await s.listen(socketPath)
 })
 
-test('works', t => {
+test.cb('works', t => {
   const url = format('http://unix:%s:%s', socketPath, '/')
 
   fugot(url)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'ok')
+      t.end()
     })
 })
 
-test('protocol-less works', async t => {
+test.cb('protocol-less works', t => {
   const url = format('unix:%s:%s', socketPath, '/')
 
   fugot(url)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'ok')
+      t.end()
     })
 })
 

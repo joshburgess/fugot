@@ -30,15 +30,16 @@ test('url is required', t => {
     }, t.falsy)
 })
 
-test('options are optional', t => {
+test.cb('options are optional', t => {
   fugot(`${s.url}/test`)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '/test')
+      t.end()
     })
 })
 
-test('accepts url.parse object as first argument', t => {
+test.cb('accepts url.parse object as first argument', t => {
   fugot({
     hostname: s.host,
     port: s.port,
@@ -47,10 +48,11 @@ test('accepts url.parse object as first argument', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '/test')
+      t.end()
     })
 })
 
-test('requestUrl with url.parse object as first argument', t => {
+test.cb('requestUrl with url.parse object as first argument', t => {
   fugot({
     hostname: s.host,
     port: s.port,
@@ -59,14 +61,16 @@ test('requestUrl with url.parse object as first argument', t => {
     .map(x => x.requestUrl)
     .fork(t.falsy, (url) => {
       t.is(url, `${s.url}/test`)
+      t.end()
     })
 })
 
-test('overrides querystring from opts', t => {
+test.cb('overrides querystring from opts', t => {
   fugot(`${s.url}/?test=juan`, {query: {test: 'wow'}})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '/?test=wow')
+      t.end()
     })
 })
 

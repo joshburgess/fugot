@@ -40,52 +40,58 @@ test.before('setup', async () => {
   await s.listen(s.port)
 })
 
-test('decompress content', t => {
+test.cb('decompress content', t => {
   fugot(s.url)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, testContent)
+      t.end()
     })
 })
 
-test('handles gzip error', t => {
+test.cb('handles gzip error', t => {
   fugot(`${s.url}/corrupted`)
     .fork((error) => {
       t.is(error.message, 'incorrect header check')
       t.is(error.path, '/corrupted')
       t.is(error.name, 'ReadError')
+      t.end()
     }, t.falsy)
 })
 
-test('preserve headers property', t => {
+test.cb('preserve headers property', t => {
   fugot(s.url)
     .map(x => x.headers)
     .fork(t.falsy, (headers) => {
       t.truthy(headers)
+      t.end()
     })
 })
 
-test('do not break HEAD responses', t => {
+test.cb('do not break HEAD responses', t => {
   fugot.head(s.url)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '')
+      t.end()
     })
 })
 
-test('ignore missing data', t => {
+test.cb('ignore missing data', t => {
   fugot(`${s.url}/missing-data`)
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, testContent)
+      t.end()
     })
 })
 
-test('has url and requestUrl properties', t => {
+test.cb('has url and requestUrl properties', t => {
   fugot(s.url)
     .fork(t.falsy, (res) => {
       t.truthy(res.url)
       t.truthy(res.requestUrl)
+      t.end()
     })
 })
 

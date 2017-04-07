@@ -24,90 +24,91 @@ test.before('setup', async () => {
   await s.listen(s.port)
 })
 
-test('GET can have body', t => {
-  fugot(s.url, {body: 'hi'})
-    .map(x => { return {body: x.body, headers: x.headers} })
-    .fork(t.falsy, (data) => {
-      t.is(data.headers.method, 'GET')
-      t.is(data.body, 'hi')
-    })
-})
-
-test('sends null-prototype objects', t => {
+test.cb('sends null-prototype objects', t => {
   fugot(s.url, {body: Object.create(null)})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '')
+      t.end()
     })
 })
 
-test('sends plain objects', t => {
+test.cb('sends plain objects', t => {
   fugot(s.url, {body: {}})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '')
+      t.end()
     })
 })
 
-test('sends non-plain objects', t => {
+test.cb('sends non-plain objects', t => {
   class Obj {}
 
   fugot(s.url, {body: new Obj()})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '')
+      t.end()
     })
 })
 
-test('sends strings', t => {
+test.cb('sends strings', t => {
   fugot(s.url, {body: 'hello'})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'hello')
+      t.end()
     })
 })
 
-test('sends Buffers', t => {
+test.cb('sends Buffers', t => {
   fugot(s.url, {body: new Buffer('hello')})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'hello')
+      t.end()
     })
 })
 
-test('sends Streams', t => {
+test.cb('sends Streams', t => {
   fugot(s.url, {body: intoStream(['hello'])})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'hello')
+      t.end()
     })
 })
 
-test('works with empty post response', t => {
+test.cb('works with empty post response', t => {
   fugot(`${s.url}/empty`, {body: 'hello'})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, '')
+      t.end()
     })
 })
 
-test('content-length header with string body', async t => {
+test.cb('content-length header with string body', t => {
   fugot(`${s.url}/headers`, {body: 'hello', json: true})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['content-length'], '5')
+      t.end()
+      t.end()
     })
 })
 
-test('content-length header with Buffer body', t => {
+test.cb('content-length header with Buffer body', t => {
   fugot(`${s.url}/headers`, {body: new Buffer('hello'), json: true})
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['content-length'], '5')
+      t.end()
     })
 })
 
-test('content-length header with Stream body', t => {
+test.cb('content-length header with Stream body', t => {
   fugot(`${s.url}/headers`, {
     body: intoStream(['hello']),
     json: true
@@ -115,10 +116,11 @@ test('content-length header with Stream body', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['content-length'], undefined)
+      t.end()
     })
 })
 
-test('content-length header is not overriden', t => {
+test.cb('content-length header is not overriden', t => {
   fugot(`${s.url}/headers`, {
     body: 'wow',
     json: true,
@@ -129,10 +131,11 @@ test('content-length header is not overriden', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['content-length'], '10')
+      t.end()
     })
 })
 
-test('content-length header disabled for chunked transfer-encoding', t => {
+test.cb('content-length header disabled for chunked transfer-encoding', t => {
   fugot(`${s.url}/headers`, {
     body: '3\r\nwow\r\n0\r\n',
     json: true,
@@ -143,10 +146,11 @@ test('content-length header disabled for chunked transfer-encoding', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['content-length'], undefined)
+      t.end()
     })
 })
 
-test('object in options.body treated as querystring', t => {
+test.cb('object in options.body treated as querystring', t => {
   class Obj {
     constructor () {
       this.hello = 'bye'
@@ -161,10 +165,11 @@ test('object in options.body treated as querystring', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body, 'hello=bye')
+      t.end()
     })
 })
 
-test('content-type header is not overriden when object in options.body', t => {
+test.cb('content-type header is not overriden when object in options.body', t => {
   fugot(`${s.url}/headers`, {
     headers: {
       'content-type': 'hello'
@@ -177,6 +182,7 @@ test('content-type header is not overriden when object in options.body', t => {
     .map(x => x.body)
     .fork(t.falsy, (body) => {
       t.is(body['content-type'], 'hello')
+      t.end()
     })
 })
 

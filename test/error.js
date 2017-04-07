@@ -15,7 +15,7 @@ test.before('setup', async () => {
   await s.listen(s.port)
 })
 
-test('properties', t => {
+test.cb('properties', t => {
   fugot(s.url)
     .fork((error) => {
       t.truthy(error)
@@ -25,16 +25,18 @@ test('properties', t => {
       t.is(error.message, 'Response code 404 (Not Found)')
       t.is(error.host, `${s.host}:${s.port}`)
       t.is(error.method, 'GET')
+      t.end()
     }, t.falsy)
 })
 
-test('dns message', t => {
+test.cb('dns message', t => {
   fugot('.com', {retries: 0})
     .fork((error) => {
       t.truthy(error)
       t.regex(error.message, /getaddrinfo ENOTFOUND/)
       t.is(error.host, '.com')
       t.is(error.method, 'GET')
+      t.end()
     }, t.falsy)
 })
 
