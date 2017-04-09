@@ -133,7 +133,7 @@ Defines if redirect responses should be followed automatically.
 ## Thanks
 
 * [Sindre Sorhus](https://github.com/sindresorhus) for `got` and the docs
-* [Aldwin Vlasblom](https://github.com/fluture-js/Fluture) for `fluture`
+* [Aldwin Vlasblom](https://github.com/Avaq) for `fluture`
 
 ## License
 
